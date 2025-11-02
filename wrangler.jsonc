@@ -9,7 +9,7 @@
 
   // === Static UI ===
   "assets": {
-    "directory": "web",
+    "directory": "dist",
     "binding": "ASSETS",
     "run_worker_first": true
   },
