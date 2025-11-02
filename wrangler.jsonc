@@ -30,23 +30,22 @@
   ],
 
   // === Dispatcher (platform calls per-user Workers) ===
-  "dispatch_namespaces": [
-    {
-      "binding": "DISPATCHER",
-      "namespace": "codr-default-namespace",
-      "remote": true
-    }
-  ],
+  // "dispatch_namespaces": [
+  //   {
+  //     "binding": "DISPATCHER",
+  //     "namespace": "codr-default-namespace",
+  //     "remote": true
+  //   }
+  // ],
 
   // === Data bindings ===
   "kv_namespaces": [
-    { "binding": "AGENT_CACHE", "id": "agent_cache_namespace" }
+    { "binding": "AGENT_CACHE" }
   ],
   "d1_databases": [
     {
       "binding": "AGENT_REGISTRY_DB",
       "database_name": "agent_registry_db",
-      "database_id": "agent_registry_database",
       // 👇 This makes deploy auto-run your SQL files in /src/migrations
       "migrations_dir": "src/migrations"
     }
@@ -67,7 +66,6 @@
   // Pre-filled per your preference; Dashboard can still override.
   "vars": {
     "CLOUDFLARE_AI_GATEWAY": "codr-gateway",
-    "DISPATCH_NAMESPACE": "codr-default-namespace",
     "GOOGLE_AI_STUDIO_API_KEY": "",
 
     "CUSTOM_DOMAIN": "",
