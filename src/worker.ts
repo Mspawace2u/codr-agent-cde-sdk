@@ -96,8 +96,8 @@ app.get("/", async (c) => {
             <h1>🧩 Codr — Build Your Agent Army</h1>
             <p>Chat your workflow → Ship your agent → Deploy to Cloudflare in minutes.</p>
             <p>
-              <button class="cta" onclick="window.location.href='/api/hello'">
-                Ping API
+              <button class="cta" onclick="window.location.href='/builder'">
+                Start Building Agent
               </button>
             </p>
             <p style="opacity:0.7">
@@ -108,6 +108,51 @@ app.get("/", async (c) => {
         <script src="/web/main.js" type="module"></script>
       </body>
     </html>
+  `);
+});
+
+// Builder page
+app.get("/builder", async (c) => {
+  return c.html(`
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Codr Agent Builder</title>
+  <link rel="stylesheet" href="/web/style.css" />
+  <style>
+    body {
+      background: #0d0d0d;
+      color: #f4f4f4;
+      font-family: system-ui, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    #app {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .help { color: #888; font-size: 0.9em; margin-bottom: 1em; }
+    .input, .textarea { width: 100%; padding: 0.5em; margin-bottom: 1em; background: #222; color: #fff; border: 1px solid #444; border-radius: 4px; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 0.5em; margin-bottom: 1em; }
+    .cta { background: #333; color: #fff; border: 1px solid #555; padding: 0.5em 1em; border-radius: 4px; cursor: pointer; }
+    .cta.selected { background: #a855f7; border-color: #a855f7; }
+    .cta:hover { background: #444; }
+    .nav { display: flex; justify-content: space-between; margin-top: 2em; }
+    .primary { background: #a855f7; border-color: #a855f7; }
+    .ghost { background: transparent; border: 1px solid #555; }
+    .review { list-style: none; padding: 0; }
+    .review li { margin-bottom: 0.5em; padding: 0.5em; background: #222; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>Loading Codr Agent Builder...</h1>
+  </div>
+  <script src="/web/builder.js"></script>
+</body>
+</html>
   `);
 });
 
