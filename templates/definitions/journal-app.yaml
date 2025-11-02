@@ -1,0 +1,83 @@
+name: "journal-app"
+description: "Voice and text journal entries with mood tracking and insights"
+category: "productivity"
+framework: "react"
+complexity: "simple"
+
+# Template capabilities for AI matching
+capabilities:
+  - voice_input: true
+  - text_input: true
+  - data_storage: true
+  - mood_tracking: true
+  - insights: true
+  - local_storage: true
+
+# Base reference template
+base_reference: "vite-reference"
+
+# Package.json patches
+package_patches:
+  dependencies:
+    lucide-react: "^0.344.0"
+    date-fns: "^3.3.1"
+
+# Template variables for AI customization
+variables:
+  app_title: "{{jtbd_description}}"
+  primary_color: "{{visual_style.color}}"
+  theme: "{{visual_style.theme}}"
+  storage_type: "localStorage"
+
+# AI customization prompts
+customization_prompts:
+  ui_generation: |
+    Create a journal app UI with:
+    - Voice recording capability
+    - Text input with rich formatting
+    - Mood tracking with emoji selectors
+    - Entry timeline view
+    - Search and filter functionality
+    - Export options
+
+    Style preferences:
+    - Theme: {{visual_style.theme}}
+    - Color palette: {{visual_style.color}}
+    - Font: {{visual_style.font}}
+    - Design vibe: {{visual_style.vibe}}
+
+  functionality: |
+    Implement journal functionality:
+    - Voice-to-text conversion
+    - Entry storage and retrieval
+    - Mood analysis and trends
+    - Search across entries
+    - Export to various formats
+    - Privacy and data management
+
+# Required API integrations
+api_integrations:
+  - type: "browser"
+    capabilities: ["speech_recognition", "local_storage"]
+  - type: "optional"
+    providers: ["openai", "anthropic"]
+    purpose: "sentiment_analysis"
+
+# Deployment configuration
+deployment:
+  worker_type: "pages"
+  routing: "subdomain"
+  database: "local_storage"
+  assets: "inline"
+
+# Interconnection points
+connections:
+  outputs:
+    - type: "webhook"
+      trigger: "new_entry"
+      data: "entry_summary"
+    - type: "export"
+      formats: ["json", "pdf", "txt"]
+  inputs:
+    - type: "import"
+      sources: ["file_upload", "url_import"]

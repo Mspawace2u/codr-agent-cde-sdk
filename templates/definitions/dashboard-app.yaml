@@ -1,0 +1,81 @@
+name: "dashboard-app"
+description: "Management dashboard for pipeline, project, asset, or onboarding tracking"
+category: "business"
+framework: "react"
+complexity: "complex"
+
+capabilities:
+  - kanban_board: true
+  - metrics_tracking: true
+  - data_visualization: true
+  - team_collaboration: false
+  - reporting: true
+  - workflow_management: true
+
+base_reference: "vite-reference"
+
+package_patches:
+  dependencies:
+    lucide-react: "^0.344.0"
+    date-fns: "^3.3.1"
+    recharts: "^2.9.3"
+
+variables:
+  dashboard_type: "{{jtbd_description}}"
+  primary_color: "{{visual_style.color}}"
+  theme: "{{visual_style.theme}}"
+  storage_type: "localStorage"
+
+customization_prompts:
+  ui_generation: |
+    Create a management dashboard with:
+    - Configurable kanban boards
+    - Metrics cards with trend indicators
+    - Data visualization charts
+    - Item creation and editing forms
+    - Search and filtering
+    - Export capabilities
+
+    Dashboard types to support:
+    - Sales Pipeline
+    - Project Management
+    - Asset Tracking
+    - Onboarding Process
+
+    Style preferences:
+    - Theme: {{visual_style.theme}}
+    - Color palette: {{visual_style.color}}
+    - Font: {{visual_style.font}}
+    - Design vibe: {{visual_style.vibe}}
+
+  functionality: |
+    Implement dashboard management:
+    - Dynamic board configuration
+    - Item status tracking
+    - Metrics calculation
+    - Data persistence
+    - User customization options
+
+api_integrations:
+  - type: "browser"
+    capabilities: ["local_storage"]
+  - type: "optional"
+    providers: ["openai", "anthropic"]
+    purpose: "insights"
+
+deployment:
+  worker_type: "pages"
+  routing: "subdomain"
+  database: "local_storage"
+  assets: "inline"
+
+connections:
+  outputs:
+    - type: "webhook"
+      trigger: "status_change"
+      data: "item_update"
+    - type: "export"
+      formats: ["json", "csv", "pdf"]
+  inputs:
+    - type: "import"
+      sources: ["csv_upload", "api_sync"]

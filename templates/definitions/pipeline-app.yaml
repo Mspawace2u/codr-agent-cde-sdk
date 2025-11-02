@@ -1,0 +1,95 @@
+name: "pipeline-app"
+description: "Versatile pipeline management for content, sales, partnerships, production, projects, and teams"
+category: "business"
+framework: "react"
+complexity: "complex"
+
+capabilities:
+  - kanban_board: true
+  - pipeline_management: true
+  - workflow_tracking: true
+  - team_collaboration: false
+  - metrics_reporting: true
+  - status_tracking: true
+  - deadline_management: true
+  - resource_allocation: true
+
+base_reference: "vite-reference"
+
+package_patches:
+  dependencies:
+    lucide-react: "^0.344.0"
+    date-fns: "^3.3.1"
+    recharts: "^2.9.3"
+
+variables:
+  pipeline_type: "{{jtbd_description}}"
+  primary_color: "{{visual_style.color}}"
+  theme: "{{visual_style.theme}}"
+  stages: "Planning,In Progress,Review,Complete"
+  metrics_enabled: true
+
+customization_prompts:
+  ui_generation: |
+    Create a comprehensive pipeline management interface with:
+    - Configurable pipeline stages (columns)
+    - Drag-and-drop card movement
+    - Card details with rich content (text, images, links)
+    - Filtering and search capabilities
+    - Metrics dashboard with charts
+    - Timeline and deadline tracking
+    - Team member assignment (optional)
+
+    Pipeline types to support:
+    - Content Pipeline (idea → draft → edit → publish)
+    - Sales Pipeline (lead → contact → proposal → close)
+    - Partnership/Sponsor Pipeline (prospect → outreach → negotiation → agreement)
+    - Production Pipeline (planning → development → testing → launch)
+    - Project Management (backlog → todo → in progress → done)
+    - Team Management (task → assigned → in progress → complete)
+
+    Style preferences:
+    - Theme: {{visual_style.theme}}
+    - Color palette: {{visual_style.color}}
+    - Font: {{visual_style.font}}
+    - Design vibe: {{visual_style.vibe}}
+
+  functionality: |
+    Implement comprehensive pipeline management:
+    - Dynamic stage configuration
+    - Item creation and editing with rich metadata
+    - Status tracking and history
+    - Automated metrics calculation
+    - Export capabilities (CSV, JSON, PDF)
+    - Deadline notifications and alerts
+    - Search and filtering across all items
+    - Bulk operations and batch updates
+
+api_integrations:
+  - type: "browser"
+    capabilities: ["local_storage", "notifications"]
+  - type: "optional"
+    providers: ["openai", "anthropic"]
+    purpose: "insights_and_automation"
+
+deployment:
+  worker_type: "pages"
+  routing: "subdomain"
+  database: "local_storage"
+  assets: "inline"
+
+connections:
+  outputs:
+    - type: "webhook"
+      trigger: "stage_change"
+      data: "pipeline_update"
+    - type: "webhook"
+      trigger: "deadline_approaching"
+      data: "deadline_alert"
+    - type: "export"
+      formats: ["json", "csv", "pdf"]
+  inputs:
+    - type: "import"
+      sources: ["csv_upload", "api_import", "bulk_create"]
+    - type: "webhook"
+      triggers: ["external_update", "status_sync"]

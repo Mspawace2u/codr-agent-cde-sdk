@@ -1,0 +1,37 @@
+{
+  "name": "codr-agent-cde-sdk",
+  "version": "1.0.0",
+  "description": "🧩 Codr — ND-friendly Cloudflare Worker + UI SDK for building, deploying, and chaining MCP-style agents.",
+  "private": true,
+  "type": "module",
+  "main": "src/worker.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "build": "wrangler deploy --dry-run",
+    "migrate": "wrangler d1 migrations apply AGENT_REGISTRY_DB",
+    "start": "npm run dev"
+  },
+  "dependencies": {
+    "@cloudflare/workers-types": "^4.20251014.0",
+    "@types/node": "^24.9.2",
+    "hono": "^3.7.0",
+    "nanoid": "^5.0.3",
+    "yaml": "^2.8.1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.23.0",
+    "typescript": "^5.4.5",
+    "wrangler": "^3.80.0"
+  },
+  "license": "MIT",
+  "author": "Patty Woods (VibeCodr Systems)",
+  "keywords": [
+    "cloudflare-workers",
+    "mcp",
+    "agentic",
+    "vibe-code",
+    "nd-friendly",
+    "sdk"
+  ]
+}

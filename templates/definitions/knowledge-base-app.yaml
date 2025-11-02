@@ -1,0 +1,99 @@
+name: "knowledge-base-app"
+description: "RAG-powered knowledge base for querying customer support, sales prequalification, account updates, student queries, and training reference"
+category: "business"
+framework: "react"
+complexity: "complex"
+
+capabilities:
+  - knowledge_storage: true
+  - semantic_search: true
+  - rag_querying: true
+  - document_upload: true
+  - conversation_history: true
+  - multi_user_support: false
+  - analytics_tracking: true
+
+base_reference: "vite-reference"
+
+package_patches:
+  dependencies:
+    lucide-react: "^0.344.0"
+    date-fns: "^3.3.1"
+    react-markdown: "^9.0.1"
+
+variables:
+  knowledge_domain: "{{jtbd_description}}"
+  primary_color: "{{visual_style.color}}"
+  theme: "{{visual_style.theme}}"
+  search_enabled: true
+  upload_enabled: true
+  conversation_history: true
+
+customization_prompts:
+  ui_generation: |
+    Create a knowledge base interface with:
+    - Search interface with semantic matching
+    - Document upload and management
+    - Conversation history and threading
+    - Knowledge article display with rich formatting
+    - Analytics dashboard for query patterns
+    - Admin interface for content management
+    - Export capabilities for knowledge sharing
+
+    Knowledge base types to support:
+    - Customer Support KB (FAQs, troubleshooting, policies)
+    - Sales Prequalification (product info, pricing, objections)
+    - Account Management (login help, payment methods, updates)
+    - Student/Client Queries (course info, resources, support)
+    - Brand Creator Training (copywriting, content, video, branding guides)
+    - Strategic Reference (market data, competitor analysis, industry trends)
+    - Executive Support (KPIs, reports, strategic insights)
+
+    Style preferences:
+    - Theme: {{visual_style.theme}}
+    - Color palette: {{visual_style.color}}
+    - Font: {{visual_style.font}}
+    - Design vibe: {{visual_style.vibe}}
+
+  functionality: |
+    Implement RAG-powered knowledge management:
+    - Document ingestion and chunking
+    - Vector embeddings for semantic search
+    - Query processing with context retrieval
+    - Conversation memory and follow-up
+    - Content management and updates
+    - Usage analytics and insights
+    - Multi-format support (text, PDF, docs)
+    - Search result ranking and relevance
+
+api_integrations:
+  - type: "required"
+    providers: ["openai", "anthropic"]
+    purpose: "embeddings_and_query_processing"
+  - type: "browser"
+    capabilities: ["file_system", "local_storage"]
+  - type: "optional"
+    providers: ["replicate"]
+    purpose: "advanced_embeddings"
+
+deployment:
+  worker_type: "pages"
+  routing: "subdomain"
+  database: "local_storage"
+  assets: "r2"
+
+connections:
+  outputs:
+    - type: "webhook"
+      trigger: "knowledge_query"
+      data: "query_result"
+    - type: "webhook"
+      trigger: "content_update"
+      data: "update_notification"
+    - type: "export"
+      formats: ["json", "pdf", "csv"]
+  inputs:
+    - type: "webhook"
+      triggers: ["external_knowledge_sync", "user_query"]
+    - type: "upload"
+      sources: ["file_upload", "api_import", "bulk_import"]

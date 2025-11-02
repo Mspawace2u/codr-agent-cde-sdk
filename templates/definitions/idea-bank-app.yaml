@@ -1,0 +1,77 @@
+name: "idea-bank-app"
+description: "Multi-device idea capture and organization system"
+category: "productivity"
+framework: "react"
+complexity: "medium"
+
+capabilities:
+  - multi_device_input: true
+  - file_upload: true
+  - voice_recording: true
+  - image_capture: true
+  - idea_organization: true
+  - search_filter: true
+  - export: true
+
+base_reference: "vite-reference"
+
+package_patches:
+  dependencies:
+    lucide-react: "^0.344.0"
+    date-fns: "^3.3.1"
+
+variables:
+  app_title: "Idea Bank"
+  primary_color: "{{visual_style.color}}"
+  theme: "{{visual_style.theme}}"
+  storage_type: "localStorage"
+  max_file_size: "10MB"
+
+customization_prompts:
+  ui_generation: |
+    Create an idea capture interface with:
+    - Quick text input with tags
+    - Voice recording with transcription
+    - Image capture and annotation
+    - File upload with preview
+    - Idea cards with rich formatting
+    - Search and filter system
+    - Category organization
+
+    Style preferences:
+    - Theme: {{visual_style.theme}}
+    - Color palette: {{visual_style.color}}
+    - Font: {{visual_style.font}}
+    - Design vibe: {{visual_style.vibe}}
+
+  functionality: |
+    Implement idea management:
+    - Multi-modal input capture
+    - Automatic transcription
+    - Idea linking and relationships
+    - Export and sharing options
+    - Backup and sync capabilities
+
+api_integrations:
+  - type: "browser"
+    capabilities: ["speech_recognition", "file_system", "camera", "microphone"]
+  - type: "optional"
+    providers: ["openai", "anthropic"]
+    purpose: "transcription"
+
+deployment:
+  worker_type: "pages"
+  routing: "subdomain"
+  database: "local_storage"
+  assets: "r2"
+
+connections:
+  outputs:
+    - type: "webhook"
+      trigger: "new_idea"
+      data: "idea_summary"
+    - type: "export"
+      formats: ["json", "csv", "pdf"]
+  inputs:
+    - type: "import"
+      sources: ["bulk_upload", "api_import"]
